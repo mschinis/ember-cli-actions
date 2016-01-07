@@ -1,7 +1,7 @@
 {
   "name": "ember-cli-actions",
   "version": "0.0.2",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "An ember-cli addon for writing and testing ember actions",
   "directories": {
     "doc": "doc",
     "test": "tests"
