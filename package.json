@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-actions",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "An ember-cli addon for writing and testing ember actions",
   "directories": {
     "doc": "doc",
