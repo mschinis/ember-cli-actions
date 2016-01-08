@@ -9,3 +9,5 @@ binds them to the route, and passes them down to the model to be used.
 ## Installation
 
 Installation instructions to be added here.
+
+**Developed at [Trouva](https://www.trouva.com)**
