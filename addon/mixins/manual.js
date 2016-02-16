@@ -10,7 +10,7 @@ export default Ember.Mixin.create({
       const config = this.container.lookupFactory('config:environment');
       actionPath = config.podModulePrefix?
         `${config.podModulePrefix}/${this.routeName}/actions` :
-        `${applicationConfig.modulePrefix}/actions/${this.routeName}`;
+        `${config.modulePrefix}/actions/${this.routeName}`;
     }
 
     const actions = System.import(actionPath);
