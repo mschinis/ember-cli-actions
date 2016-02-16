@@ -19,7 +19,7 @@ export default Ember.Mixin.create({
             }
             // Set the actions hash as an object inside the route
             // Need to pass the actions hash in the model.
-            this.set('actions',binded);
+            Ember.merge(this.get('actions'), binded);
         });
     }
 });
