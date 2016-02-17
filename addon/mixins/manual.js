@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  importActions(path){
+  importActions(path, actions = 'all'){
     let actionPath = '';
 
     if(path){
@@ -13,13 +13,15 @@ export default Ember.Mixin.create({
         `${config.modulePrefix}/actions/${this.routeName}`;
     }
 
-    const actions = System.import(actionPath);
-    actions.then(res=>{
+    const importedActions = System.import(actionPath);
+    importedActions.then(res=>{
         let binded = {};
         for(let i in res){
             if(res.hasOwnProperty(i) && typeof res[i] === 'function'){
-                res[i].bind(this)
-                binded[i] = res[i].bind(this);
+                if(actions === 'all' || actions.indexOf(res[i].name) !== -1){
+                  res[i].bind(this)
+                  binded[i] = res[i].bind(this);
+                }
             }
         }
         // Set the actions hash as an object inside the route
