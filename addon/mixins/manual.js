@@ -19,7 +19,7 @@ export default Ember.Mixin.create({
         for(let i in res){
             if(res.hasOwnProperty(i) && typeof res[i] === 'function'){
                 if(actions === 'all' || actions.indexOf(res[i].name) !== -1){
-                  res[i].bind(this)
+                  res[i].bind(this);
                   binded[i] = res[i].bind(this);
                 }
             }

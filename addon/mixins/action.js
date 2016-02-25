@@ -1,19 +1,27 @@
 import Ember from 'ember';
 
+const regex = /[\w-]+@(\w+):(\w+):/g;
+
 export default Ember.Mixin.create({
-    beforeModel(){
+    init(){
         this._super();
+        const constructorName = this.constructor.toString();
+        const [ , route, name ] = regex.exec(constructorName);
+        if (route !== "route") {
+            throw new Error("The ActionsMixin is currently only applicable to routes");
+        }
+
         const config = this.container.lookupFactory('config:environment');
         const actionPath = config.podModulePrefix?
-          `${config.podModulePrefix}/${this.routeName}/actions` :
-          `${config.modulePrefix}/actions/${this.routeName}`;
+          `${config.podModulePrefix}/${name}/actions` :
+          `${config.modulePrefix}/actions/${name}`;
 
         const actions = System.import(actionPath);
         actions.then(res=>{
             let binded = {};
             for(let i in res){
                 if(res.hasOwnProperty(i) && typeof res[i] === 'function'){
-                    res[i].bind(this)
+                    res[i].bind(this);
                     binded[i] = res[i].bind(this);
                 }
             }
