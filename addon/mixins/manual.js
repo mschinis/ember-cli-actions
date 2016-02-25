@@ -14,19 +14,22 @@ export default Ember.Mixin.create({
     }
 
     const importedActions = System.import(actionPath);
+    //support 1.13 and 2.x
+    const actionsVariablePath = this.get('_actions') ? '_actions' : 'actions';
+
     importedActions.then(res=>{
-        let binded = {};
+        const bound = {};
         for(let i in res){
             if(res.hasOwnProperty(i) && typeof res[i] === 'function'){
                 if(actions === 'all' || actions.indexOf(res[i].name) !== -1){
                   res[i].bind(this);
-                  binded[i] = res[i].bind(this);
+                  bound[i] = res[i].bind(this);
                 }
             }
         }
         // Set the actions hash as an object inside the route
         // Need to pass the actions hash in the model.
-        Ember.merge(this.get('actions'), binded);
+        Ember.merge(this.get(actionsVariablePath), bound);
     });
   }
 });
