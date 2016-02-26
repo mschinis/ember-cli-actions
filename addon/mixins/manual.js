@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import getOwner from 'ember-getowner-polyfill';
 
 export default Ember.Mixin.create({
   importActions(path, actions = 'all'){
@@ -7,7 +8,7 @@ export default Ember.Mixin.create({
     if(path){
       actionPath = path;
     }else{
-      const config = this.container.lookupFactory('config:environment');
+      const config = getOwner(this).resolveRegistration('config:environment');
       actionPath = config.podModulePrefix?
         `${config.podModulePrefix}/${this.routeName}/actions` :
         `${config.modulePrefix}/actions/${this.routeName}`;
