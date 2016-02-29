@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import getOwner from 'ember-getowner-polyfill';
 
 const regex = /[\w-]+@(\w+):(\w+):/g;
 
@@ -11,7 +12,7 @@ export default Ember.Mixin.create({
             throw new Error('`ember-cli-actions/mixins/action` is currently only applicable to routes');
         }
 
-        const config = this.container.lookupFactory('config:environment');
+        const config = getOwner(this).resolveRegistration('config:environment');
         const actionPath = config.podModulePrefix?
           `${config.podModulePrefix}/${name}/actions` :
           `${config.modulePrefix}/actions/${name}`;
